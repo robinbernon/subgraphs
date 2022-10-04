@@ -1,3 +1,4 @@
+import { log } from "@graphprotocol/graph-ts";
 import { Address, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import {
   Account,
@@ -232,6 +233,10 @@ export function updateTvlAndTokenPrices(poolAddress: string): void {
 
   token0.lastPriceUSD = findUSDPricePerToken(token0, nativeToken);
   token1.lastPriceUSD = findUSDPricePerToken(token1, nativeToken);
+
+  log.debug("Native token priceUSD: {}", [nativeToken.lastPriceUSD!.toString()])
+  log.debug("Token0-{}: priceUSD={} decimals={}", [token0.name, token0.lastPriceUSD!.toString(), token0.decimals.toString()])
+  log.debug("Token1-{}: priceUSD={} decimals={}", [token1.name, token1.lastPriceUSD!.toString(), token1.decimals.toString()])
 
   // Subtract the old pool tvl
   protocol.totalValueLockedUSD = protocol.totalValueLockedUSD.minus(

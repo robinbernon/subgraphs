@@ -1,3 +1,4 @@
+import { log } from "@graphprotocol/graph-ts";
 import { BigDecimal } from "@graphprotocol/graph-ts/index";
 import {
   getLiquidityPool,
@@ -123,6 +124,7 @@ export function findUSDPricePerToken(
       }
     }
   }
+  log.warning("No price for token-{} found!! - WhitelistLength:{}", [token.name, whiteList.length.toString()])
   return priceSoFar; // nothing was found return 0
 }
 
